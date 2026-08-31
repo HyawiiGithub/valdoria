@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Federal Republic of Valdoria — Assembly Register</title>
+<style>
+  :root{
+    --ink:#0b0d11;
+    --panel:#111318;
+    --panel-2:#0e1014;
+    --line:#262b35;
+    --line-soft:#1b1f27;
+    --text:#e9e7df;
+    --text-dim:#9a9d9;
+    --text-dim:#9a9d93;
+    --text-mute:#5d6169;
+    --brass:#a9853f;
+    --brass-dim:#6b562c;
+
+    --c-wa:#7a5a99;   /* Workers' Alliance */
+    --c-sd:#a63b3b;   /* Social Democratic */
+    --c-ga:#4c7a54;   /* Green-Agrarian Union */
+    --c-in:#7d818a;   /* Independents */
+    --c-lib:#b6903f;  /* Liberal */
+    --c-nu:#3a5578;   /* National Unity */
+
+    --c-gov:#8a3b3f;
+    --c-swg:#b6903f;
+    --c-opp:#3a5578;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(169,133,63,0.05), transparent 60%),
+      var(--ink);
+    color:var(--text);
+    font-family:'Iowan Old Style','Palatino Linotype','Georgia',serif;
+    padding:2.5rem 1.25rem 4rem;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .sheet{
+    max-width:920px;
+    margin:0 auto;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:1.5rem;
+    padding-bottom:1.1rem;
+    border-bottom:1px solid var(--brass-dim);
+    flex-wrap:wrap;
+  }
+  .masthead-id{
+    display:flex;
+    align-items:center;
+    gap:0.9rem;
+  }
+  .seal{width:46px;height:46px;flex:none;}
+  .masthead h1{
+    font-size:1.5rem;
+    font-weight:600;
+    letter-spacing:0.2px;
+    line-height:1.15;
+  }
+  .masthead .kicker{
+    font-family:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+    font-size:0.62rem;
+    color:var(--text-mute);
+    letter-spacing:0.04em;
+    margin-top:0.3rem;
+  }
+  .masthead-right{
+    text-align:right;
+    font-family:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+    font-size:0.68rem;
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+  .masthead-right .yr{color:var(--brass);font-size:0.9rem;}
+
+  /* ── ROLE LEDGER ── */
+  .roles{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    margin:1.4rem 0 2rem;
+    border:1px solid var(--line-soft);
+  }
+  .roles div{
+    padding:0.7rem 1rem;
+    border-right:1px solid var(--line-soft);
+    font-family:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+  }
+  .roles div:last-child{border-right:none;}
+  .roles .k{font-size:0.6rem;color:var(--text-mute);letter-spacing:0.03em;}
+  .roles .v{
+    font-family:'Iowan Old Style','Georgia',serif;
+    font-size:0.92rem;
+    color:var(--text);
+    margin-top:0.15rem;
+  }
+  @media (max-width:640px){
+    .roles{grid-template-columns:1fr;}
+    .roles div{border-right:none;border-bottom:1px solid var(--line-soft);}
+    .roles div:last-child{border-bottom:none;}
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:0.9rem;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:1.05rem;
+    font-weight:600;
+  }
+  .section-head .meta{
+    font-family:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+    font-size:0.68rem;
+    color:var(--text-mute);
+  }
+
+  .view-toggle{
+    display:inline-flex;
+    border:1px solid var(--line);
+    font-family:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+    font-size:0.66rem;
+  }
+  .view-toggle button{
+    background:none;
+    border:none;
+    color:var(--text-dim);
+    padding:0.35rem 0.8rem;
+    cursor:pointer;
+    letter-spacing:0.03em;
+  }
+  .view-toggle button + button{border-left:1px solid var(--line);}
+  .view-toggle button.active{
+    background:var(--brass-dim);
+    color:#f2e6c9;
+  }
+
+  /* ── HEMICYCLE ── */
+  .assembly{
+    margin-bottom:0.4rem;
+  }
+  .hemi{
+    max-width:560px;
+    margin:0 auto;
+  }
+  .hemi svg{width:100%;height:auto;display:block;}
+
+  /* ── SEAT BAR ── */
+  .seatbar{
+    display:flex;
+    width:100%;
+    height:20px;
+    border:1px solid var(--line-soft);
+    overflow:hidden;
+    margin:1.4rem 0 0.9rem;
+  }
+  .seatbar .seg{height:100%;}
+
+  .ruler{
+    position:relative;
+    height:14px;
+    margin:0.15rem 0 1.3rem;
+  }
+  .ruler .tick{
+    position:absolute;
+    top:0;bottom:0;
+    width:1px;
+    background:var(--line);
+  }
+  .ruler .tick.mid{background:var(--brass);}
+  .ruler .tick span{
+    position:absolute;
+    top:16px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.56rem;
+    color:var(--text-mute);
+    white-space:nowrap;
+  }
+  .ruler .tick.mid span{color:var(--brass);}
+
+  /* ── LEGEND ── */
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.55rem 1.4rem;
+    padding:1rem 0 1.6rem;
+    border-bottom:1px solid var(--line-soft);
+    font-size:0.82rem;
+  }
+  .legend .item{
+    display:flex;
+    align-items:baseline;
+    gap:0.45rem;
+    white-space:nowrap;
+  }
+  .legend .sw{
+    width:9px;height:9px;
+    border-radius:1px;
+    display:inline-block;
+    transform:translateY(-1px);
+  }
+  .legend .n{color:var(--text);}
+  .legend .s{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    color:var(--text-dim);
+  }
+  .legend .p{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem;
+    color:var(--text-mute);
+  }
+
+  /* ── STANDING NOTE ── */
+  .standing-note{
+    padding:1rem 0 1.8rem;
+    font-size:0.95rem;
+    line-height:1.55;
+    color:var(--text-dim);
+    max-width:70ch;
+  }
+  .standing-note strong{color:var(--text);font-weight:600;}
+  .standing-note .fig{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--brass);
+    font-size:0.9em;
+  }
+
+  /* ── ARITHMETIC TABLE ── */
+  .arith{
+    width:100%;
+    border-collapse:collapse;
+    margin:0.6rem 0 2.2rem;
+    font-size:0.85rem;
+  }
+  .arith td{
+    padding:0.55rem 0.2rem;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .arith td:first-child{color:var(--text-dim);}
+  .arith td:last-child{
+    text-align:right;
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--text);
+  }
+  .arith tr.total td{color:var(--text);font-weight:600;}
+  .arith tr.total td:last-child{color:var(--brass);}
+
+  /* ── DOCKET ── */
+  .docket{
+    border:1px dashed var(--line);
+    padding:1.3rem 1.4rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .docket-no{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.62rem;
+    color:var(--text-mute);
+    letter-spacing:0.04em;
+  }
+  .docket h3{
+    font-size:1.15rem;
+    font-weight:600;
+    margin:0.35rem 0 0.3rem;
+  }
+  .docket .dmeta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.68rem;
+    color:var(--text-mute);
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .docket-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:1.1rem;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .call-btn{
+    background:none;
+    border:1px solid var(--brass-dim);
+    color:#f2e6c9;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+    padding:0.5rem 1.1rem;
+    cursor:pointer;
+  }
+  .call-btn:hover{border-color:var(--brass);}
+  .call-btn:disabled{opacity:0.35;cursor:default;}
+  .tally{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    color:var(--text-dim);
+  }
+  .stamp{
+    position:absolute;
+    right:1.3rem;
+    bottom:1.1rem;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    font-size:1.3rem;
+    letter-spacing:0.08em;
+    padding:0.25rem 0.9rem;
+    border:3px solid;
+    border-radius:4px;
+    transform:rotate(-9deg) scale(1.4);
+    opacity:0;
+    pointer-events:none;
+  }
+  .stamp.show{
+    animation:stampdown 0.45s cubic-bezier(.2,.9,.3,1.2) forwards;
+  }
+  .stamp.pass{color:#5c9a67;border-color:#3f6b4a;}
+  .stamp.fail{color:#b25b52;border-color:#7a3d38;}
+  @keyframes stampdown{
+    0%{opacity:0;transform:rotate(-9deg) scale(2.2);}
+    70%{opacity:0.9;}
+    100%{opacity:0.85;transform:rotate(-9deg) scale(1);}
+  }
+
+  .colophon{
+    margin-top:2.4rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line-soft);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.6rem;
+    color:var(--text-mute);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-id">
+      <svg class="seal" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="21" stroke="#a9853f" stroke-width="1.1"/>
+        <circle cx="24" cy="24" r="16" stroke="#6b562c" stroke-width="0.7"/>
+        <path d="M24 10 L27 21 L38 21 L29 27.5 L32.5 38 L24 31 L15.5 38 L19 27.5 L10 21 L21 21 Z"
+              fill="none" stroke="#a9853f" stroke-width="0.9"/>
+      </svg>
+      <div>
+        <h1>Federal Republic of Valdoria</h1>
+        <div class="kicker">FEDERAL PARLIAMENTARY REPUBLIC · FOUNDED 1919</div>
+      </div>
+    </div>
+    <div class="masthead-right">
+      <div><span class="yr">2331</span> — 12th Legislature</div>
+      <div>Varenstadt, session convened 3 March</div>
+    </div>
+  </div>
+
+  <!-- ROLE LEDGER -->
+  <div class="roles">
+    <div>
+      <div class="k">HEAD OF STATE</div>
+      <div class="v">Federal President</div>
+    </div>
+    <div>
+      <div class="k">HEAD OF GOVERNMENT</div>
+      <div class="v">Federal Chancellor, Social Democratic</div>
+    </div>
+    <div>
+      <div class="k">GOVERNING ARRANGEMENT</div>
+      <div class="v">Social Democratic–Green Agrarian coalition</div>
+    </div>
+  </div>
+
+  <!-- ASSEMBLY -->
+  <div class="assembly">
+    <div class="section-head">
+      <div>
+        <h2>Federal Assembly</h2>
+        <div class="meta">650 seats · 326 for a majority</div>
+      </div>
+      <div class="view-toggle">
+        <button id="btnParties" class="active">By party</button>
+        <button id="btnCoalition">By bloc</button>
+      </div>
+    </div>
+
+    <div class="hemi" id="hemiBox"></div>
+
+    <div class="seatbar" id="seatbar"></div>
+    <div class="ruler" id="ruler"></div>
+
+    <div class="legend" id="legend"></div>
+
+    <div class="standing-note" id="standingNote"></div>
+  </div>
+
+  <!-- ARITHMETIC -->
+  <div>
+    <div class="section-head">
+      <h2>Majority arithmetic</h2>
+      <div class="meta">as of 3 March 2331</div>
+    </div>
+    <table class="arith" id="arithTable"></table>
+  </div>
+
+  <!-- DOCKET -->
+  <div>
+    <div class="section-head">
+      <h2>On the floor</h2>
+      <div class="meta">infrastructure docket</div>
+    </div>
+    <div class="docket">
+      <div class="docket-no">DOCKET NO. 2331-014</div>
+      <h3>Railway Expansion Act</h3>
+      <div class="dmeta">
+        <span>Category: Infrastructure</span>
+        <span>Proposed 3 March 2331</span>
+      </div>
+      <div class="docket-foot">
+        <span class="tally" id="tally">Not yet called to a vote</span>
+        <button class="call-btn" id="voteBtn">Call the vote</button>
+      </div>
+      <div class="stamp" id="stamp">PASSED</div>
+    </div>
+  </div>
+
+  <div class="colophon">
+    OFFICE OF THE ASSEMBLY CLERK · VARENSTADT · REGISTER COMPILED FOR SESSION 12–2331
+  </div>
+
+</div>
+
+<script>
+(function(){
+
+  const TOTAL_SEATS = 650;
+  const MAJORITY = Math.floor(TOTAL_SEATS/2) + 1;
+  const RULING_ID = 'sd';
+  const COALITION_ID = 'ga';
+
+  // left → right ordering along the political spectrum
+  const parties = [
+    { id:'wa',  label:"Workers' Alliance",        seats:48,  color:'var(--c-wa)',  hex:'#7a5a99', group:'opposition' },
+    { id:'sd',  label:'Social Democratic Party',   seats:238, color:'var(--c-sd)',  hex:'#a63b3b', group:'government' },
+    { id:'ga',  label:'Green–Agrarian Union',      seats:72,  color:'var(--c-ga)',  hex:'#4c7a54', group:'government' },
+    { id:'in',  label:'Independents',              seats:36,  color:'var(--c-in)',  hex:'#7d818a', group:'swing' },
+    { id:'lib', label:'Liberal Party',              seats:94,  color:'var(--c-lib)', hex:'#b6903f', group:'swing' },
+    { id:'nu',  label:'National Unity Party',       seats:162, color:'var(--c-nu)',  hex:'#3a5578', group:'opposition' },
+  ];
+
+  const groupMeta = {
+    government:{ label:'Governing coalition', hex:'#8a3b3f' },
+    swing:     { label:'Unaligned', hex:'#b6903f' },
+    opposition:{ label:'Opposition', hex:'#3a5578' },
+  };
+
+  let mode = 'party'; // or 'coalition'
+
+  function seatArray(){
+    const arr = [];
+    parties.forEach(p=>{ for(let i=0;i<p.seats;i++) arr.push(p.id); });
+    return arr;
+  }
+
+  function colorFor(partyId){
+    const p = parties.find(x=>x.id===partyId);
+    if(mode==='party') return p.hex;
+    return groupMeta[p.group].hex;
+  }
+
+  // ── HEMICYCLE ──
+  function renderHemicycle(){
+    const arr = seatArray();
+    const total = arr.length;
+    const cx=280, cy=245, dotR=4.6;
+    const rows = 20;
+    const perRow = [];
+    let remaining = total;
+    for(let i=0;i<rows;i++){
+      const n = Math.round(remaining/(rows-i));
+      perRow.push(n);
+      remaining -= n;
+    }
+    let svg = `<svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg">`;
+    svg += `<path d="M 40 245 A 240 240 0 0 1 520 245" fill="none" stroke="#1b1f27" stroke-width="1"/>`;
+    let idx=0;
+    perRow.forEach((rowSize,rowIdx)=>{
+      const rInner = 60 + rowIdx*(180/rows);
+      const yBase = cy - rowIdx*0; // unused, using radial placement instead
+      for(let i=0;i<rowSize && idx<total;i++){
+        const t = rowSize===1 ? 0.5 : i/(rowSize-1);
+        const angle = Math.PI - t*Math.PI; // left(PI) → right(0)
+        const rad = 55 + rowIdx*(185/(rows-1));
+        const x = cx + rad*Math.cos(angle);
+        const y = cy - rad*Math.sin(angle);
+        const c = colorFor(arr[idx]);
+        svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${dotR}" fill="${c}" stroke="#0b0d11" stroke-width="1"/>`;
+        idx++;
+      }
+    });
+    svg += `<text x="280" y="238" text-anchor="middle" fill="#5d6169" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="2">650 SEATS</text>`;
+    svg += `</svg>`;
+    document.getElementById('hemiBox').innerHTML = svg;
+  }
+
+  // ── SEAT BAR + RULER ──
+  function renderSeatbar(){
+    const bar = document.getElementById('seatbar');
+    bar.innerHTML = '';
+    parties.forEach(p=>{
+      const seg = document.createElement('div');
+      seg.className='seg';
+      seg.style.width = (p.seats/TOTAL_SEATS*100)+'%';
+      seg.style.background = mode==='party' ? p.hex : groupMeta[p.group].hex;
+      bar.appendChild(seg);
+    });
+
+    const ruler = document.getElementById('ruler');
+    ruler.innerHTML='';
+    [0,100,200,300,400,500,600].forEach(n=>{
+      const t=document.createElement('div');
+      t.className='tick';
+      t.style.left=(n/TOTAL_SEATS*100)+'%';
+      t.innerHTML=`<span>${n}</span>`;
+      ruler.appendChild(t);
+    });
+    const mid=document.createElement('div');
+    mid.className='tick mid';
+    mid.style.left=(MAJORITY/TOTAL_SEATS*100)+'%';
+    mid.innerHTML=`<span>${MAJORITY}</span>`;
+    ruler.appendChild(mid);
+  }
+
+  // ── LEGEND ──
+  function renderLegend(){
+    const el = document.getElementById('legend');
+    el.innerHTML='';
+    if(mode==='party'){
+      parties.forEach(p=>{
+        const pct = (p.seats/TOTAL_SEATS*100).toFixed(1);
+        el.innerHTML += `<span class="item">
+          <span class="sw" style="background:${p.hex}"></span>
+          <span class="n">${p.label}</span>
+          <span class="s">${p.seats}</span>
+          <span class="p">(${pct}%)</span>
+        </span>`;
+      });
+    } else {
+      const totals={government:0,swing:0,opposition:0};
+      parties.forEach(p=>totals[p.group]+=p.seats);
+      ['government','swing','opposition'].forEach(g=>{
+        const pct=(totals[g]/TOTAL_SEATS*100).toFixed(1);
+        el.innerHTML += `<span class="item">
+          <span class="sw" style="background:${groupMeta[g].hex}"></span>
+          <span class="n">${groupMeta[g].label}</span>
+          <span class="s">${totals[g]}</span>
+          <span class="p">(${pct}%)</span>
+        </span>`;
+      });
+    }
+  }
+
+  // ── STANDING NOTE + ARITHMETIC ──
+  function renderNoteAndArith(){
+    const gov = parties.filter(p=>p.group==='government').reduce((s,p)=>s+p.seats,0);
+    const opp = parties.filter(p=>p.group==='opposition').reduce((s,p)=>s+p.seats,0);
+    const swg = parties.filter(p=>p.group==='swing').reduce((s,p)=>s+p.seats,0);
+    const need = Math.max(MAJORITY-gov,0);
+
+    document.getElementById('standingNote').innerHTML =
+      `<strong>Social Democratic Party</strong> holds the largest bloc with <span class="fig">238</span> seats.
+       In coalition with the Green–Agrarian Union it commands <span class="fig">${gov}</span> seats —
+       <span class="fig">${need}</span> short of the <span class="fig">${MAJORITY}</span> needed to govern without
+       relying on the Liberal Party or Independents on the floor.`;
+
+    const table = document.getElementById('arithTable');
+    table.innerHTML = `
+      <tr><td>Governing coalition (Social Democratic + Green–Agrarian)</td><td>${gov}</td></tr>
+      <tr><td>Unaligned (Liberal + Independents)</td><td>${swg}</td></tr>
+      <tr><td>Opposition (National Unity + Workers' Alliance)</td><td>${opp}</td></tr>
+      <tr class="total"><td>Seats needed for a majority</td><td>${MAJORITY}</td></tr>
+      <tr class="total"><td>Coalition falls short by</td><td>${need}</td></tr>
+    `;
+  }
+
+  function renderAll(){
+    renderHemicycle();
+    renderSeatbar();
+    renderLegend();
+    renderNoteAndArith();
+  }
+
+  document.getElementById('btnParties').addEventListener('click', ()=>{
+    mode='party';
+    document.getElementById('btnParties').classList.add('active');
+    document.getElementById('btnCoalition').classList.remove('active');
+    renderAll();
+  });
+  document.getElementById('btnCoalition').addEventListener('click', ()=>{
+    mode='coalition';
+    document.getElementById('btnCoalition').classList.add('active');
+    document.getElementById('btnParties').classList.remove('active');
+    renderAll();
+  });
+
+  renderAll();
+
+  // ── BILL VOTE SIMULATION ──
+  const billType='infrastructure';
+  let voting=false;
+
+  function aiVote(party){
+    if(party.id===RULING_ID) return 'yes';
+    if(party.id===COALITION_ID) return 'yes';
+    if(party.group==='opposition' && party.id==='nu') return 'no';
+    if(party.group==='opposition' && party.id==='wa') return Math.random()>0.35 ? 'yes':'no';
+    if(party.id==='lib') return 'yes';
+    if(party.id==='in') return Math.random()>0.5 ? 'yes':'no';
+    return 'abstain';
+  }
+
+  document.getElementById('voteBtn').addEventListener('click', function(){
+    if(voting) return;
+    voting=true;
+    const btn=this;
+    const tally=document.getElementById('tally');
+    const stamp=document.getElementById('stamp');
+    btn.disabled=true;
+    tally.textContent='Counting the floor…';
+
+    setTimeout(()=>{
+      let yes=0,no=0;
+      parties.forEach(p=>{
+        const v=aiVote(p);
+        if(v==='yes') yes+=p.seats;
+        else if(v==='no') no+=p.seats;
+      });
+      const passed = yes > no;
+      tally.textContent = `Ayes ${yes} · Noes ${no}`;
+      stamp.textContent = passed ? 'PASSED' : 'FAILED';
+      stamp.className = 'stamp show ' + (passed?'pass':'fail');
+      voting=false;
+    }, 1100);
+  });
+
+})();
+</script>
+
+</body>
+</html>
