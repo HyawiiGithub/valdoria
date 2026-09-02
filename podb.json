@@ -1,1 +1,86 @@
-
+{
+  "parties": [
+    {
+      "id": "wa",
+      "seats": 48
+    },
+    {
+      "id": "sd",
+      "seats": 238
+    },
+    {
+      "id": "ga",
+      "seats": 72
+    },
+    {
+      "id": "in",
+      "seats": 36
+    },
+    {
+      "id": "lib",
+      "seats": 94
+    },
+    {
+      "id": "nu",
+      "seats": 162
+    }
+  ],
+  "currentBill": {
+    "title": "Valdorian Industrial Expansion Directive",
+    "category": "Industry",
+    "sponsor": "Federal Chancellor (SD)",
+    "urgency": "Urgent",
+    "description": "Following the completion of the national economic surveys, the Federal Ministry of Economic Affairs has identified industrial capacity as the primary bottleneck limiting Valdoria's growth. The Ministry has issued the following directive to address the situation:",
+    "fullText": "I. COAL & STEEL\n\nThe Ministry orders the immediate expansion of mining operations in the eastern coal fields. Three new shafts are to be opened at the Ostwald complex. The Varenstadt Steelworks will receive new blast furnaces, with delivery expected by the end of the year.\n\nII. RAILWAY LOGISTICS\n\nThe Ministry orders the reallocation of rolling stock to prioritize coal and steel transport. The eastern lines are to receive priority maintenance. New sidings will be built at the major junction points to reduce congestion.\n\nIII. FACTORY REACTIVATION\n\nThe Ministry orders the reopening of the idle locomotive works at Hafenstadt and the textile mills at Neuberg. Both facilities are to be operational within six months. The government will provide low-interest loans to cover restart costs.\n\nIV. SKILLED LABOUR\n\nThe Ministry orders the expansion of technical training programs at the state engineering schools. An additional 5,000 apprentices will be admitted this year, with priority given to the sons and daughters of mining and industrial families.\n\nV. EXPORT ORIENTATION\n\nThe Ministry orders that surplus steel production from the expanded facilities be directed toward export markets to generate foreign currency for further industrial imports.\n\nThe Ministry has further stated that these measures are the first phase of a broader industrial policy. The second phase, to be announced later this year, will address chemical production and shipbuilding capacity.",
+    "docket": "2331-001",
+    "date": "2 September 2026",
+    "modifiers": [
+      {
+        "id": "e001",
+        "label": "GDP Growth - National",
+        "val": 5.34,
+        "dur": 60,
+        "category": "GDP Growth"
+      },
+      {
+        "id": "e011",
+        "label": "Inflation (CPI) - National",
+        "val": 1.4,
+        "dur": 60,
+        "category": "Inflation (CPI)"
+      },
+      {
+        "id": "e061",
+        "label": "Public Debt Ratio - National",
+        "val": 12.34,
+        "dur": 60,
+        "category": "Public Debt Ratio"
+      },
+      {
+        "id": "e066",
+        "label": "Fiscal Deficit - National",
+        "val": 3.4,
+        "dur": 60,
+        "category": "Fiscal Deficit"
+      }
+    ],
+    "passed": true
+  },
+  "updatedAt": "2026-09-02T00:00:00.000Z",
+  "economy": {
+    "gdp": 150000000000,
+    "population": 100000000,
+    "inflation": 2.1,
+    "unemployment": 5.8,
+    "debtRatio": 58.0,
+    "history": [],
+    "currency": {
+      "name": "Valdorian Crown",
+      "code": "VLC",
+      "symbol": "₵",
+      "rate": 1.5,
+      "worldName": "World Currency",
+      "worldCode": "WCU"
+    }
+  }
+}
